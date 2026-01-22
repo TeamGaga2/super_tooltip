@@ -477,19 +477,6 @@ class _SuperTooltipState extends State<SuperTooltip>
     super.initState();
   }
 
-  @override
-  void didUpdateWidget(SuperTooltip oldWidget) {
-    if (_superTooltipController != widget.controller) {
-      _superTooltipController!.removeListener(_onChangeNotifier);
-      if (oldWidget.controller == null) {
-        _superTooltipController?.dispose();
-      }
-      _superTooltipController = widget.controller ?? SuperTooltipController();
-      _superTooltipController!.addListener(_onChangeNotifier);
-    }
-    super.didUpdateWidget(oldWidget);
-  }
-
   // @override
   @override
   void dispose() {
@@ -552,19 +539,7 @@ class _SuperTooltipState extends State<SuperTooltip>
       },
       child: CompositedTransformTarget(
         link: _layerLink,
-        child: GestureDetector(
-          onTap: () {
-            if (widget.toggleOnTap && _superTooltipController!.isVisible) {
-              _superTooltipController!.hideTooltip();
-            } else {
-              if (widget.showOnTap) {
-                _superTooltipController!.showTooltip();
-              }
-            }
-          },
-          onLongPress: widget.onLongPress,
-          child: widget.child,
-        ),
+        child: widget.child,
       ),
     );
   }

@@ -15,14 +15,16 @@ class SuperTooltipController extends ChangeNotifier {
     event = Event.show;
     _completer = Completer();
     notifyListeners();
-    return _completer.future.whenComplete(() => _isVisible = true);
+    _isVisible = true;
+    return _completer.future;
   }
 
   Future<void> hideTooltip() {
     event = Event.hide;
     _completer = Completer();
     notifyListeners();
-    return _completer.future.whenComplete(() => _isVisible = false);
+    _isVisible = false;
+    return _completer.future;
   }
 
   void complete() {
